@@ -1,24 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
-
+import NavBar from './components/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CartContainer from './components/CartContainer';
+import { calculateTotal, getCartItems } from './redux/features/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import Modaly from './components/Modaly';
+import { Loader } from './icons';
 function App() {
+  const { cartItems, isLoading } = useSelector((store) => store.cart)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch((calculateTotal()))
+  }
+    , [cartItems])
+  useEffect(() => {
+    dispatch((getCartItems()))
+  }
+    , [])
+  if (isLoading) {
+    return (
+      <>
+        <Loader />
+        <h1 className='loading'>Loading</h1>
+      </>
+    )
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <CartContainer />
+      <Modaly />
+    </>
   );
 }
 
