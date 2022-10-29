@@ -1,10 +1,8 @@
 import React from 'react'
 import { ChevronDown,ChevronUp } from '../icons'
 import { removeItem,increase,decrease } from '../redux/features/cart/cartSlice'
-import { useDispatch, useSelector } from 'react-redux'
-// import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 export default function CartItem({item}) {
-  // const {price} = useSelector((store)=>store.cart)
   const dispatch = useDispatch();
   return (
     <article className="cart-item">
